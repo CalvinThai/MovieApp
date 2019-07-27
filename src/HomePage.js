@@ -28,18 +28,29 @@ class HomePage extends React.Component{
           .then(
             (movie)=> {
               console.log(movie['original_title']);
-              moviepage = <Movie title={movie['original_title']}/>;
-              this.page = moviepage;
+              moviepage = <Movie 
+                title={movie['original_title']} 
 
+                
+                />;
+
+
+              this.page = moviepage;
+//title, image, plot synopsis, user rating ,release date
               //<Movie title={movie['original_title']}/>
             }
           )
+      }
+
+      returnPosterPath(pathid){
+        return ("http://image.tmdb.org/t/p/w185/" + pathid);
       }
 
 
       
 
       render(){
+
         fetch("https://api.themoviedb.org/3/movie/popular?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page=1")
           .then(res => res.json())
           .then(
@@ -62,25 +73,25 @@ class HomePage extends React.Component{
           //movie url picture: http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
 
         //console.log(this.state.movies[0])
-        return(
-          //<HomePage />
-
-          
+        if (this.state.job === 0){
+          this.page = (
             <div>
-
-
             <h1> Pop Movies</h1>
             <ul>
             {this.state.movies.map(movie =>(
                 //<li key = {movie.title}> {movie.title}</li>
                 //<a href = {"http://google.com/" + movie.id}><img src = {"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt="new" /></a>
                 <li key = {movie.id}>
-                <button onClick={()=> this.handleClick(movie.id)}><img src = {"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt="new" /></button>
+                <button onClick={()=> this.handleClick(movie.id)}><img src = {this.returnPosterPath(movie.poster_path)} alt="new" /></button>
                 </li>
             ))}
             </ul>
             </div>
+            )
+        }
 
+        return(
+          this.page
         )
         }
 }
