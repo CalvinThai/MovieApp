@@ -5,7 +5,11 @@ class Movie extends React.Component{
     super(props)
     this.state ={
       title: props.title,
-      image: "http://image.tmdb.org/t/p/w185/" + props.poster_path
+      image: props.poster_path,
+      plot_synopsis: props.plot_synopsis,
+      user_rating: props.user_rating,
+      release_date: props.release_date
+
 
     };
   }
@@ -16,6 +20,12 @@ class Movie extends React.Component{
     return(
       <div>
       <h1> {this.state.title} </h1>
+      <img src = {this.state.image} alt="new" />
+      <h1> {this.state.plot_synopsis} </h1>
+      <h1> {this.state.user_rating} </h1>
+      <h1> {this.state.release_date} </h1>
+
+
       </div>
     )
   }

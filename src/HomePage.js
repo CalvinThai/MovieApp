@@ -12,7 +12,6 @@ class HomePage extends React.Component{
  
     
         };
-        this.handleClick = this.handleClick.bind(this)
         this.page = null;
       }
 
@@ -30,7 +29,10 @@ class HomePage extends React.Component{
               console.log(movie['original_title']);
               moviepage = <Movie 
                 title={movie['original_title']} 
-
+                poster_path = {this.returnPosterPath(movie['poster_path'])}
+                plot_synopsis = {movie['overview']}
+                user_rating = {movie['vote_average']}
+                release_date = {movie['release_date']}
                 
                 />;
 
@@ -45,9 +47,6 @@ class HomePage extends React.Component{
       returnPosterPath(pathid){
         return ("http://image.tmdb.org/t/p/w185/" + pathid);
       }
-
-
-      
 
       render(){
 
