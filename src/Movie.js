@@ -1,6 +1,6 @@
 import React from 'react';
 import HomePage from './HomePage';
-import { thisExpression } from '@babel/types';
+
 class Movie extends React.Component{
   constructor(props){
     super(props)
@@ -30,7 +30,7 @@ class Movie extends React.Component{
   render(){
     
     let trailers = [];
-    fetch("https://api.themoviedb.org/3/movie/"+this.state.id+"/videos?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US")
+    fetch("https://api.themoviedb.org/3/movie/"+this.state.id+"/videos?api_key="+global.key+"&language=en-US")
     .then(res=>res.json())
     .then(
       (result) => {

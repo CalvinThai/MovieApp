@@ -12,7 +12,6 @@ class HomePage extends React.Component{
           total_movies: 0,
           page: props.page,
           job: 0,
-          total_pages: 0
         };
         this.page = null;
       }
@@ -30,9 +29,8 @@ class HomePage extends React.Component{
         console.log(this.state.job);
         console.log(e)
         let moviepage = null;
-        let pageholder = this.state.page + 1
 
-        fetch("https://api.themoviedb.org/3/movie/"+e+"?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page="+ this.state.page)
+        fetch("https://api.themoviedb.org/3/movie/"+e+"?api_key="+global.key+"&language=en-US&page="+ this.state.page)
           .then(res => res.json())
           .then(
             (movie)=> {
@@ -64,7 +62,7 @@ class HomePage extends React.Component{
 
       render(){
         let pageholder = this.state.page + 1
-        fetch("https://api.themoviedb.org/3/movie/popular?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page="+this.state.page)
+        fetch("https://api.themoviedb.org/3/movie/popular?api_key="+global.key+"&language=en-US&page="+this.state.page)
           .then(res => res.json())
           .then(
             (movie) => {
