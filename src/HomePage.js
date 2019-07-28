@@ -11,7 +11,8 @@ class HomePage extends React.Component{
           movies: [],
           total_movies: 0,
           page: props.page,
-          job: 0
+          job: 0,
+          total_pages: 0
         };
         this.page = null;
       }
@@ -46,6 +47,7 @@ class HomePage extends React.Component{
                 id = {movie['id']}
                 page = {this.state.page}
                 onPageChange = {this.onPageChange.bind(this)}
+                total_pages = {movie['total_pages']}
                 />;
 
 

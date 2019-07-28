@@ -29,6 +29,8 @@ class PageChange extends React.Component{
                 <div>
                     <button className ="nextbutton" onClick={()=> this.handlePrevPage()}> previous page </button>
                     <button className ="nextbutton" onClick={()=> this.handleNextPage()}> next page </button>
+
+
                 </div>
 
             )
@@ -37,6 +39,7 @@ class PageChange extends React.Component{
             return(
                 <div>
                     <button className ="nextbutton" onClick={()=> this.handleNextPage()}> next page </button>
+
 
                 </div>
             )
