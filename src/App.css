@@ -31,3 +31,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.Pop-Movies {
+
+  font-family: Helvetica;
+  color: white;
+}
+.posterbutton{
+  display:grid;
+  background-color: #212121;
+  background-size: contain;
+}
+
+.moviep{
+  color:white;
+}
+.inline.moviep{
+  display:inline-block
+}
+
+.nextbutton{
+  display:inline-block;
+}

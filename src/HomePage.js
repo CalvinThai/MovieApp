@@ -1,5 +1,8 @@
 import React from "react";
 import Movie from "./Movie";
+import PageChange from "./PageChange"
+
+
 class HomePage extends React.Component{
     constructor(props){
         super(props);
@@ -7,12 +10,17 @@ class HomePage extends React.Component{
           isLoaded: false,
           movies: [],
           total_movies: 0,
-          pages: 0,
-          job: 0,
- 
-    
+          page: props.page,
+          job: 0
         };
         this.page = null;
+      }
+
+      onPageChange(page){
+        this.setState({
+          page: page
+        })
+        window.scrollTo(0, 0)
       }
 
       handleClick(e){
@@ -21,8 +29,9 @@ class HomePage extends React.Component{
         console.log(this.state.job);
         console.log(e)
         let moviepage = null;
+        let pageholder = this.state.page + 1
 
-        fetch("https://api.themoviedb.org/3/movie/"+e+"?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page=1")
+        fetch("https://api.themoviedb.org/3/movie/"+e+"?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page="+ this.state.page)
           .then(res => res.json())
           .then(
             (movie)=> {
@@ -33,13 +42,15 @@ class HomePage extends React.Component{
                 plot_synopsis = {movie['overview']}
                 user_rating = {movie['vote_average']}
                 release_date = {movie['release_date']}
-                
+                runtime = {movie['runtime']}
+                id = {movie['id']}
+                page = {this.state.page}
+                onPageChange = {this.onPageChange.bind(this)}
                 />;
 
 
               this.page = moviepage;
-//title, image, plot synopsis, user rating ,release date
-              //<Movie title={movie['original_title']}/>
+
             }
           )
       }
@@ -48,17 +59,17 @@ class HomePage extends React.Component{
         return ("http://image.tmdb.org/t/p/w185/" + pathid);
       }
 
-      render(){
 
-        fetch("https://api.themoviedb.org/3/movie/popular?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page=1")
+      render(){
+        let pageholder = this.state.page + 1
+        fetch("https://api.themoviedb.org/3/movie/popular?api_key=5d42ffc91983f9505c131b035b679cb8&language=en-US&page="+this.state.page)
           .then(res => res.json())
           .then(
             (movie) => {
             this.setState({
               isLoaded:true,
               movies: movie['results'],
-              total_movies: movie['total_results'],
-              pages: 1
+              total_movies: movie['total_results']
     
             });
           },
@@ -75,26 +86,33 @@ class HomePage extends React.Component{
         if (this.state.job === 0){
           this.page = (
             <div>
-            <h1> Pop Movies</h1>
-            <ul>
-            {this.state.movies.map(movie =>(
-                //<li key = {movie.title}> {movie.title}</li>
-                //<a href = {"http://google.com/" + movie.id}><img src = {"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt="new" /></a>
-                <li key = {movie.id}>
-                <button onClick={()=> this.handleClick(movie.id)}><img src = {this.returnPosterPath(movie.poster_path)} alt="new" /></button>
-                </li>
-            ))}
-            </ul>
+              <h1>{this.state.page}</h1>
+              <h1 className ="Pop-Movies"> Pop Movies</h1>
+              <div className = "container">
+                <div className="row row-no-padding">
+                  {this.state.movies.map(movie =>(
+                      //<li key = {movie.title}> {movie.title}</li>
+                      //<a href = {"http://google.com/" + movie.id}><img src = {"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt="new" /></a>
+                        <div className="col-xs-6" key={movie.id}>
+                          <button className ="posterbutton" onClick={()=> this.handleClick(movie.id)}><img src = {this.returnPosterPath(movie.poster_path)} width = "175" height = "279px"/></button>
+                        </div>
+                    
+                  ))}
+                </div>
+              </div>
+              <PageChange 
+                page={this.state.page} 
+                onPageChange = {this.onPageChange.bind(this)}
+              />
+
             </div>
             )
         }
-
         return(
           this.page
         )
         }
 }
-//just rerender page with new movie and info and stuff
 export default HomePage
 
 
